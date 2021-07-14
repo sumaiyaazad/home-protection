@@ -12,10 +12,15 @@
                                 color="success"
                                 style="width:310px;font-family: 'Dancing Script', cursive; font-size: 1.1em"
                                 dark
+                                @click="fClicked"
                             >
                                 Flame Sensor Status
                             </v-btn>
-                        </div>
+                                <v-card-text v-if="fshow" style="width:310px;font-family: 'Dancing Script', cursive; font-size: 1.7em">current temperature :
+                                </v-card-text>
+                                <v-card-text v-if="fshow" style="width:310px;font-family: 'Dancing Script', cursive; font-size: 1.7em"> 22 Celcius
+                                </v-card-text>
+                            </div>
                         </v-card-actions>
                         <v-card-actions class="justify-center">
                             <div class="my-2">
@@ -24,11 +29,21 @@
                                     color="success"
                                     dark
                                     style="width:310px;font-family: 'Dancing Script', cursive; font-size: 1.1em"
+                                    @click="gClicked"
                                 >
                                    Gas Sensor Status
                                 </v-btn>
+                                <v-card-text v-if="gshow" style="width:310px;font-family: 'Dancing Script', cursive; font-size: 1.7em">lpg gas amount:
+                                </v-card-text>
+                                <v-card-text v-if="gshow" style="width:310px;font-family: 'Dancing Script', cursive; font-size: 1.7em">1000 ppm
+                                </v-card-text>
+                                <v-card-text v-if="gshow" style="width:310px;font-family: 'Dancing Script', cursive; font-size: 1.7em">smoke amount:
+                                </v-card-text>
+                                <v-card-text v-if="gshow" style="width:310px;font-family: 'Dancing Script', cursive; font-size: 1.7em">1000 ppm
+                                </v-card-text>
                             </div>
                         </v-card-actions>
+
                         <v-card-actions class="justify-center" >
                             <div class="my-2">
                                 <v-btn
@@ -36,15 +51,20 @@
                                     color="success"
                                     dark
                                     style="font-family: 'Dancing Script', cursive; font-size: 1.1em"
+                                    @click="atClicked"
                                 >
                                     Anti-theft Sensor Status
                                 </v-btn>
+                                <v-card-text v-if="atshow" style="width:310px;font-family: 'Dancing Script', cursive; font-size: 1.7em">last motion detection time:
+                                </v-card-text>
+                                <v-card-text v-if="atshow" style="width:310px;font-family: 'Dancing Script', cursive; font-size: 1.7em">1000 ms
+                                </v-card-text>
                             </div>
                         </v-card-actions>
                         <v-card-actions class="justify-center" >
                             <div class="my-2" >
                                         <v-switch
-                                            v-model="enable"
+                                            v-model="atflag"
                                             class="my-switch"
                                             color="success"
                                             label="Anti-theft "
@@ -67,11 +87,25 @@
     name: 'Home',
     data:()=>{
         return {
-            enable:false
+            atflag:false,
+            atshow:false,
+            gshow:false,
+            fshow:false
         }
     },
     components: {
     },
+    methods:{
+        fClicked(){
+            this.fshow=!this.fshow;
+        },
+        gClicked(){
+            this.gshow=!this.gshow;
+        },
+        atClicked(){
+            this.atshow=!this.atshow;
+        }
+    }
   }
 </script>
 
@@ -80,5 +114,6 @@
     font-family: 'Dancing Script', cursive;
     font-size: 1.5em;
     text-decoration: black;
+    color: black;
 }
 </style>
