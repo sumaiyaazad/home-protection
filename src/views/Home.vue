@@ -153,13 +153,18 @@ import {mapActions} from 'vuex'
     },
     components: {},
     watch: {
-        atflag: (newVal, oldVal)=> {
-            if(newVal===true){
-                this.postAT(1);
-            }else{
-                this.postAT(0);
-            }
-        }
+        atflag: {
+            handler: async function(newVal, oldVal) {
+                if(newVal===true && oldVal===false){
+                    await this.postAT('1');
+                }
+                if(newVal===false && oldVal===true){
+                    await this.postAT('0');
+                }
+
+            },
+            deep: true
+        },
     },
     methods:{
         ...mapActions(['fetchFlame','fetchGasLpg','fetchGasSmoke','fetchAT','fetchMD','postAT']),
