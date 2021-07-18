@@ -29,6 +29,7 @@ const fetchGasSmoke= async ()=>{
         try {
             response = await axios.get('https://api.thingspeak.com/channels/1446074/fields/2.json');
             array=filterData(response.data.feeds,'field2');
+           // console.log("fetchGasSmoke response without modification: ",response.data.feeds);
             send=modifiedData(array);
             console.log("fetchGasSmoke response: ",send);
             return send;
@@ -39,10 +40,12 @@ const fetchGasSmoke= async ()=>{
 const fetchAT= async ()=>{
     try {
         response = await axios.get('https://api.thingspeak.com/channels/1446074/fields/5.json');
-        array=filterData(response.data.feeds,'field5');
-        send=modifiedData(array);
-        console.log("fetchAT response: ",send);
-        return send;
+        console.log(response.data.feeds[response.data.feeds.length-1]);
+        if(response.data.feeds[response.data.feeds.length-1]['field5']==="0"){
+
+            return "PIR Inactive";
+        }
+        return "PIR Active";
     } catch (e) {
         console.log("fetchAT catch error response data: ",e.message);
     }
@@ -51,8 +54,12 @@ const fetchMD= async ()=>{
     try {
 
         response = await axios.get('https://api.thingspeak.com/channels/1446074/fields/4.json');
-        array=filterData(response.data.feeds,'field4');
-        send=modifiedData(array);
+        if(response.data.feeds[response.data.feeds.length-1]['field4']===0 || response.data.feeds[response.data.feeds.length-1]['field4']===null){
+            return "No Motion detected";
+        }
+        send=Date.parse(response.data.feeds[response.data.feeds.length-1]['created_at'])-parseInt(response.data.feeds[response.data.feeds.length-1]['field4']);
+        console.log(send);
+        send=(new Date(send)).toLocaleString();
         console.log("fetchMD response: ",send);
         return send;
     } catch (e) {
@@ -79,11 +86,11 @@ const modifiedData= (array)=>{
 const filterData= (response,field)=>{
     let j=0;
     let array=[];
-    console.log('hi');
-    console.log(response);
+    //console.log(response);
     for(let i=0;i<response.length;i++)
-    {
-        if(response[i][field]!==null){
+    {  // console.log(response[i]);
+        if(response[i][field]!==null  && response[i][field]!=="?"){
+            console.log("inside if response: ",response[i][field])
             array[j]=response[i];
             j++;
         }else{

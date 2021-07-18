@@ -30,11 +30,11 @@
                                         </v-card-text>
                                         <v-card-text v-if="allshow" style="font-family: 'Dancing Script', cursive; font-size: 1.7em">anti theft reading:
                                         </v-card-text>
-                                        <v-card-text v-for="item in at" :key="item.id" v-if="allshow && item.field5!==null" style="font-family: 'Dancing Script', cursive; font-size: 1.2em">{{item.created_at}}   :   {{item.field5}}
+                                        <v-card-text v-if="allshow" style="font-family: 'Dancing Script', cursive; font-size: 1.2em">{{at}}
                                         </v-card-text>
                                         <v-card-text v-if="allshow" style="font-family: 'Dancing Script', cursive; font-size: 1.7em">detection reading :
                                         </v-card-text>
-                                        <v-card-text v-for="item in md" :key="item.id" v-if="allshow && item.field4!==null" style="font-family: 'Dancing Script', cursive; font-size: 1.2em">{{item.created_at}}   :   {{item.field4}}
+                                        <v-card-text  v-if="allshow" style="font-family: 'Dancing Script', cursive; font-size: 1.2em">{{md}}
                                         </v-card-text>
                                     </div>
                         </v-card-actions>
@@ -90,7 +90,7 @@
                                 </v-btn>
                                 <v-card-text v-if="atshow" style="font-family: 'Dancing Script', cursive; font-size: 1.7em">anti theft reading:
                                 </v-card-text>
-                                <v-card-text v-for="item in at" :key="item.id" v-if="atshow && item.field5!==null" style="font-family: 'Dancing Script', cursive; font-size: 1.2em">{{item.created_at}}   :   {{item.field5}}
+                                <v-card-text v-if="atshow " style="font-family: 'Dancing Script', cursive; font-size: 1.2em">{{at}}
                                 </v-card-text>
                             </div>
                         </v-card-actions>
@@ -107,7 +107,7 @@
                                 </v-btn>
                                 <v-card-text v-if="mdshow" style="font-family: 'Dancing Script', cursive; font-size: 1.7em">detection reading :
                                 </v-card-text>
-                                <v-card-text v-for="item in md" :key="item.id" v-if="mdshow  && item.field4!==null" style="font-family: 'Dancing Script', cursive; font-size: 1.2em">{{item.created_at}}   :   {{item.field4}}
+                                <v-card-text v-if="mdshow" style="font-family: 'Dancing Script', cursive; font-size: 1.2em">{{md}}
                                 </v-card-text>
                             </div>
                         </v-card-actions>
@@ -138,7 +138,7 @@ import {mapActions} from 'vuex'
     name: 'Home',
     data:()=>{
         return {
-            atflag:false,
+            atflag:'',
             atshow:false,
             gshow:false,
             fshow:false,
@@ -147,12 +147,20 @@ import {mapActions} from 'vuex'
             temp:[],
             lpg:[],
             smoke:[],
-            at:[],
-            md:[]
+            at:'',
+            md:'',
         }
     },
     components: {},
-    watch: {
+    async mounted() {
+        this.at=await this.fetchAT();
+        if(this.at==="PIR Active"){
+            this.atflag=true;
+        }else{
+            this.atflag=false;
+        }
+    },
+      watch: {
         atflag: {
             handler: async function(newVal, oldVal) {
                 if(newVal===true && oldVal===false){
