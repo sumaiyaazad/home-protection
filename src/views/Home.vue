@@ -32,7 +32,7 @@
                                         </v-card-text>
                                         <v-card-text v-if="allshow" style="font-family: 'Dancing Script', cursive; font-size: 1.2em">{{at}}
                                         </v-card-text>
-                                        <v-card-text v-if="allshow" style="font-family: 'Dancing Script', cursive; font-size: 1.7em">detection reading :
+                                        <v-card-text v-if="allshow" style="font-family: 'Dancing Script', cursive; font-size: 1.7em">last motion :
                                         </v-card-text>
                                         <v-card-text  v-if="allshow" style="font-family: 'Dancing Script', cursive; font-size: 1.2em">{{md}}
                                         </v-card-text>
@@ -105,23 +105,23 @@
                                 >
                                     Motion Detection Status
                                 </v-btn>
-                                <v-card-text v-if="mdshow" style="font-family: 'Dancing Script', cursive; font-size: 1.7em">detection reading :
+                                <v-card-text v-if="mdshow" style="font-family: 'Dancing Script', cursive; font-size: 1.7em">last motion :
                                 </v-card-text>
                                 <v-card-text v-if="mdshow" style="font-family: 'Dancing Script', cursive; font-size: 1.2em">{{md}}
                                 </v-card-text>
                             </div>
                         </v-card-actions>
-                        <v-card-actions class="justify-center" >
-                            <div class="my-2" >
-                                        <v-switch
-                                            v-model="atflag"
-                                            class="my-switch"
-                                            color="success"
-                                            label="Anti-theft "
-                                        >
-                                        </v-switch>
-                            </div>
-                        </v-card-actions>
+<!--                        <v-card-actions class="justify-center" >-->
+<!--                            <div class="my-2" >-->
+<!--                                        <v-switch-->
+<!--                                            v-model="atflag"-->
+<!--                                            class="my-switch"-->
+<!--                                            color="success"-->
+<!--                                            label="Anti-theft "-->
+<!--                                        >-->
+<!--                                        </v-switch>-->
+<!--                            </div>-->
+<!--                        </v-card-actions>-->
                     </v-card>
                 </v-col>
                 <v-col cols="12" lg="3" sm="0">
